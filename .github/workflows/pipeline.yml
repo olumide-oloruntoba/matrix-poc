@@ -12,7 +12,18 @@ on:
         - prod
 
 jobs:
-  deploy_infra:
+  deploy_to_default_region:
+    environment: '${{ inputs.environment }}'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo Location
+        shell: bash
+        run: |
+          echo ${{ inputs.environment }}
+
+  deploy_to_other_region:
+    if: ${{ github.event.inputs.environment == 'prod' }}
     environment: '${{ inputs.environment }}'
     runs-on: ubuntu-latest
     strategy:
@@ -20,13 +31,7 @@ jobs:
         other_locations: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      - name: Echo Selected Env
-        shell: bash
-        run: |
-          echo ${{ inputs.environment }}
-
       - name: Echo Other Locations
         shell: bash
         run: |
           echo ${{ matrix.other_locations }}
-        if: ${{ github.event.inputs.environment == 'prod' }}
