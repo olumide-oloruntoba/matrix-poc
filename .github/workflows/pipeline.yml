@@ -29,3 +29,4 @@ jobs:
         shell: bash
         run: |
           echo ${{ matrix.other_locations }}
+        if: ${{ github.event.inputs.environment == 'prod' }}
