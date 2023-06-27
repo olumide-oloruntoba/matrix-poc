@@ -27,7 +27,7 @@ jobs:
         id: other_locs
         run: |
           echo ${{ inputs.environment }}
-          echo "::set-output name=other_locs::${{ env.OTHER_LOCATIONS_TEST }}"
+          echo "::set-output name=other_locs::${{ secrets.O_LOCATIONS }}"
 
       - name: display
         shell: bash
@@ -45,7 +45,7 @@ jobs:
     needs: deploy_to_default_region
     strategy:
       matrix:
-        other_locations: ${{ toJson(secrets.O_LOCATIONS) }} #[ubuntu-latest, macos-latest, windows-latest]
+        other_locations: ${{ toJson(needs.deploy_to_default_region.outputs.o_locs) }} #[ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Echo Other Locations
