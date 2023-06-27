@@ -40,8 +40,8 @@ jobs:
           #   other_locs+=($element)
           # done
           # echo ${other_locs[@]}
-          echo ${{ env.OTHER_LOCATIONS_TEST[@] }}
-          echo "::set-output name=other_locs::$(echo ${{ env.OTHER_LOCATIONS_TEST[@] }})"
+          echo ${{ env.OTHER_LOCATIONS_TEST }}
+          echo "::set-output name=other_locs::$(echo ${{ env.OTHER_LOCATIONS_TEST }})"
 
       # - name: Display Matrix Value
       #   run: |
@@ -57,7 +57,7 @@ jobs:
       #     echo "Array Length: ${#ARRAY[@]}"
         
     outputs:
-      o_locs: ${{ steps.other_locs.outputs.other_locs }}
+      o_locs: ${{ toJson(steps.other_locs.outputs.other_locs) }}
 
 
   deploy_to_other_region:
