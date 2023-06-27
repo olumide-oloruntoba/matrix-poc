@@ -47,4 +47,4 @@ jobs:
         shell: bash
         run: |
           # echo ${{ matrix.other_locations }}
-          echo ${{ toJson(needs.deploy_to_default_region.outputs.o_locs) }}
+          echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
