@@ -33,6 +33,8 @@ jobs:
         shell: bash
         run: |
           echo ${{ steps.other_locs.outputs.other_locs }}
+          readarray -t ARRAY <<< "${{ secrets.O_LOCATIONS }}"
+          echo "Array Length: ${#ARRAY[@]}"
         
     outputs:
       o_locs: ${{ steps.other_locs.outputs.other_locs }}
