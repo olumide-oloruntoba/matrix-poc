@@ -28,6 +28,10 @@ jobs:
         run: |
           echo ${{ inputs.environment }}
           echo "::set-output name=other_locs::${{ secrets.O_LOCATIONS }}"
+
+      - name: display
+        shell: bash
+        run: |
           echo ${{ steps.other_locs.outputs.other_locs }}
         
     outputs:
