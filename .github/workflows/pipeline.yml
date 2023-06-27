@@ -32,13 +32,17 @@ jobs:
       - name: Split String into Array
         id: other_locs
         run: |
-          echo "::set-output name=other_locs::$(echo ${{ env.OTHER_LOCATIONS_TEST }})"
-
-      - name: Display Matrix Value
-        run: |
-          for item in "${{ steps.other_locs.outputs.other_locs }}"; do
-            echo "Matrix Value: $item"
+          IFS=',' read -ra other_locs <<< "{{ env.OTHER_LOCATIONS_TEST }}"
+          for element in "${other_locs[@]}"; do
+            echo "$element"
           done
+          echo "::set-output name=other_locs::$(echo ${other_locs[@]})"
+
+      # - name: Display Matrix Value
+      #   run: |
+      #     for item in "${{ steps.other_locs.outputs.other_locs }}"; do
+      #       echo "Matrix Value: $item"
+      #     done
 
       # - name: display
       #   shell: bash
