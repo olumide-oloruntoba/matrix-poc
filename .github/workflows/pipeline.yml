@@ -24,16 +24,23 @@ jobs:
     steps:
       - name: Echo Location
         shell: bash
+        id: other_locs
         run: |
           echo ${{ inputs.environment }}
+          echo "::set-output name=other_locs::${{ secrets.O_LOCATIONS }}"
+        
+    outputs:
+      o_locs: ${{ steps.other_locs.outputs.other_locs }}
+
 
   deploy_to_other_region:
     if: ${{ github.event.inputs.environment == 'prod' }}
     environment: '${{ inputs.environment }}'
     runs-on: ubuntu-latest
+    needs: deploy_to_default_region
     strategy:
       matrix:
-        other_locations: ${{ env.OTHER_LOCATIONS_TEST }} #[ubuntu-latest, macos-latest, windows-latest]
+        other_locations: ${{ needs.deploy_to_default_region.outputs.o_locs }} #[ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Echo Other Locations
