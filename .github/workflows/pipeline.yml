@@ -71,7 +71,7 @@ jobs:
     needs: deploy_to_default_region
     strategy:
       matrix:
-        other_locations: ${{ needs.deploy_to_default_region.outputs.o_locs }} #[ubuntu-latest, macos-latest, windows-latest]
+        other_locations: ${{ env.OTHER_LOCATIONS_TEST }} #${{ needs.deploy_to_default_region.outputs.o_locs }} #[ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Echo Other Locations
