@@ -33,7 +33,7 @@ jobs:
         id: other_locs
         shell: bash
         run: |
-          IFS=',' read -ra other_locs <<< "{{ env.OTHER_LOCATIONS_TEST }}"
+          IFS=',' read -ra other_locs <<< "${{ env.OTHER_LOCATIONS_TEST }}"
           for element in "${other_locs[@]}"; do
             echo "$element"
           done
