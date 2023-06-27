@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           echo ${{ steps.other_locs.outputs.other_locs }}
-          ARRAY=("${{ split(',', env.OTHER_LOCATIONS_TEST) }}")
+          ARRAY=("${{ split(',', ${env.OTHER_LOCATIONS_TEST}) }}")
           echo "Array Length: ${#ARRAY[@]}"
         
     outputs:
