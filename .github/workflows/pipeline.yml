@@ -1,7 +1,7 @@
 name: Using Matrix
 
 env:
-  OTHER_LOCATIONS_TEST: value1,value2,value3
+  OTHER_LOCATIONS_TEST: value1, value2, value3
 
 
 on:
