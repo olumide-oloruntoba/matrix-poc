@@ -65,15 +65,15 @@ jobs:
     environment: '${{ inputs.environment }}'
     runs-on: ubuntu-latest
     needs: deploy_to_default_region
-    strategy:
-      matrix:
-        other_locations: ${{ needs.deploy_to_default_region.outputs.o_locs }} #[ubuntu-latest, macos-latest, windows-latest]
+    # strategy:
+    #   matrix:
+    #     other_locations: ${{ needs.deploy_to_default_region.outputs.o_locs }} #[ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Echo Other Locations
         shell: bash
         run: |
-          # echo "Matrix Value: $OTHER_LOCATIONS_TEST"
-          echo ${{ matrix.other_locations }}
+          echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
+          # echo ${{ matrix.other_locations }}
           # echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
           # echo ${{ env.OTHER_LOCATIONS_TEST }}
