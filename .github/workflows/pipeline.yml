@@ -29,12 +29,12 @@ jobs:
           echo ${{ inputs.environment }}
           echo "::set-output name=other_locs::${{ env.OTHER_LOCATIONS_TEST }}"
 
-      - name: display
-        shell: bash
-        run: |
-          echo ${{ steps.other_locs.outputs.other_locs }}
-          ARRAY=("${{ split(',', ${env.OTHER_LOCATIONS_TEST}) }}")
-          echo "Array Length: ${#ARRAY[@]}"
+      # - name: display
+      #   shell: bash
+      #   run: |
+      #     echo ${{ steps.other_locs.outputs.other_locs }}
+      #     ARRAY=("${{ split(',', ${env.OTHER_LOCATIONS_TEST}) }}")
+      #     echo "Array Length: ${#ARRAY[@]}"
         
     outputs:
       o_locs: ${{ steps.other_locs.outputs.other_locs }}
