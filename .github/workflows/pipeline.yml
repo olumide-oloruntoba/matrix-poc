@@ -40,7 +40,7 @@ jobs:
             other_locs+=($element)
           done
           echo $other_locs
-          echo "::set-output name=other_locs::$(echo $other_locs)"
+          echo "::set-output name=other_locs::$(echo $other_locs[@])"
 
       # - name: Display Matrix Value
       #   run: |
