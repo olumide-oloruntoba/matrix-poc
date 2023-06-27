@@ -62,7 +62,6 @@ jobs:
     needs: deploy_to_default_region
     strategy:
       matrix:
-          # - OTHER_LOCATIONS_TEST: ${{ split(',', env.OTHER_LOCATIONS_TEST) }}
         other_locations: ${{ toJson(needs.deploy_to_default_region.outputs.o_locs) }} #[ubuntu-latest, macos-latest, windows-latest]
 
     steps:
