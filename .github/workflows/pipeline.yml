@@ -1,4 +1,9 @@
 name: Using Matrix
+
+env:
+  OTHER_LOCATIONS_TEST: "value1,value2,value3"
+
+
 on:
   workflow_dispatch:
     inputs:
@@ -21,18 +26,17 @@ jobs:
         shell: bash
         run: |
           echo ${{ inputs.environment }}
-          echo count([ubuntu-latest, macos-latest, windows-latest]) #${{ secrets.O_LOCATIONS }}
 
-  # deploy_to_other_region:
-  #   if: ${{ github.event.inputs.environment == 'prod' }}
-  #   environment: '${{ inputs.environment }}'
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       other_locations: ${{ secrets.O_LOCATIONS }} #[ubuntu-latest, macos-latest, windows-latest]
+  deploy_to_other_region:
+    if: ${{ github.event.inputs.environment == 'prod' }}
+    environment: '${{ inputs.environment }}'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        other_locations: ${{ env.OTHER_LOCATIONS_TEST }} #[ubuntu-latest, macos-latest, windows-latest]
 
-  #   steps:
-  #     - name: Echo Other Locations
-  #       shell: bash
-  #       run: |
-  #         echo ${{ matrix.other_locations }}
+    steps:
+      - name: Echo Other Locations
+        shell: bash
+        run: |
+          echo ${{ matrix.other_locations }}
