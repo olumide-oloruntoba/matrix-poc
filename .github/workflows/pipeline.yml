@@ -45,6 +45,7 @@ jobs:
           done
           formatted_array+="]"
           echo "$formatted_array"
+          echo length($formatted_array)
           echo "::set-output name=other_locs::$(echo $formatted_array)"
 
       # - name: Display Matrix Value
