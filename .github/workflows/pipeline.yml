@@ -32,7 +32,7 @@ jobs:
       - name: Split String into Array
         id: other_locs
         run: |
-          echo "::set-output name=other_locs::$(echo ${{ env.OTHER_LOCATIONS_TEST }} | tr ',' '\n')"
+          echo "::set-output name=other_locs::$(echo ${{ env.OTHER_LOCATIONS_TEST }})"
 
       # - name: display
       #   shell: bash
