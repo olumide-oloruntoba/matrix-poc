@@ -33,14 +33,15 @@ jobs:
         id: other_locs
         shell: bash
         run: |
-          other_locs=()
-          IFS=',' read -ra locs <<< "${{ env.OTHER_LOCATIONS_TEST }}"
-          for element in "${locs[@]}"; do
-            echo "$element"
-            other_locs+=($element)
-          done
-          echo ${other_locs[@]}
-          echo "::set-output name=other_locs::$(echo ${other_locs[@]})"
+          # other_locs=()
+          # IFS=',' read -ra locs <<< "${{ env.OTHER_LOCATIONS_TEST }}"
+          # for element in "${{ env.OTHER_LOCATIONS_TEST }}"; do
+          #   echo "$element"
+          #   other_locs+=($element)
+          # done
+          # echo ${other_locs[@]}
+          echo ${{ env.OTHER_LOCATIONS_TEST[@] }}
+          echo "::set-output name=other_locs::$(echo ${{ env.OTHER_LOCATIONS_TEST[@] }})"
 
       # - name: Display Matrix Value
       #   run: |
