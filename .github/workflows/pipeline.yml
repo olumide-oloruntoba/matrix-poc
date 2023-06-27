@@ -22,12 +22,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Echo Location
-        shell: bash
+      # - name: Echo Location
+      #   shell: bash
+      #   id: other_locs
+      #   run: |
+      #     echo ${{ inputs.environment }}
+      #     echo "::set-output name=other_locs::${{ env.OTHER_LOCATIONS_TEST }}"
+
+      - name: Split String into Array
         id: other_locs
         run: |
-          echo ${{ inputs.environment }}
-          echo "::set-output name=other_locs::${{ env.OTHER_LOCATIONS_TEST }}"
+          echo "::set-output name=other_locs::$(echo ${{ env.OTHER_LOCATIONS_TEST }} | tr ',' '\n')"
 
       # - name: display
       #   shell: bash
@@ -47,15 +52,14 @@ jobs:
     needs: deploy_to_default_region
     strategy:
       matrix:
-        env:
-          - OTHER_LOCATIONS_TEST: ${{ split(',', env.OTHER_LOCATIONS_TEST) }}
-        # other_locations: ${{ toJson(needs.deploy_to_default_region.outputs.o_locs) }} #[ubuntu-latest, macos-latest, windows-latest]
+          # - OTHER_LOCATIONS_TEST: ${{ split(',', env.OTHER_LOCATIONS_TEST) }}
+        other_locations: ${{ toJson(needs.deploy_to_default_region.outputs.o_locs) }} #[ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Echo Other Locations
         shell: bash
         run: |
-          echo "Matrix Value: $OTHER_LOCATIONS_TEST"
-          # echo ${{ matrix.other_locations }}
+          # echo "Matrix Value: $OTHER_LOCATIONS_TEST"
+          echo ${{ matrix.other_locations }}
           # echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
           # echo ${{ env.OTHER_LOCATIONS_TEST }}
