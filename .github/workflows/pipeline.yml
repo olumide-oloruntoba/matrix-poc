@@ -48,3 +48,4 @@ jobs:
         run: |
           # echo ${{ matrix.other_locations }}
           echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
+          echo ${{ env.OTHER_LOCATIONS_TEST }}
