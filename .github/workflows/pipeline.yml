@@ -1,7 +1,7 @@
 name: Using Matrix
 
 env:
-  OTHER_LOCATIONS_TEST: [ubuntu-latest, macos-latest, windows-latest] #"value1,value2,value3"
+  OTHER_LOCATIONS_TEST: "value1,value2,value3"
 
 
 on:
@@ -38,19 +38,19 @@ jobs:
       o_locs: ${{ steps.other_locs.outputs.other_locs }}
 
 
-  # deploy_to_other_region:
-  #   if: ${{ github.event.inputs.environment == 'prod' }}
-  #   environment: '${{ inputs.environment }}'
-  #   runs-on: ubuntu-latest
-  #   needs: deploy_to_default_region
-  #   strategy:
-  #     matrix:
-  #       other_locations: ${{ toJson(env.OTHER_LOCATIONS_TEST) }} #[ubuntu-latest, macos-latest, windows-latest]
+  deploy_to_other_region:
+    if: ${{ github.event.inputs.environment == 'prod' }}
+    environment: '${{ inputs.environment }}'
+    runs-on: ubuntu-latest
+    needs: deploy_to_default_region
+    strategy:
+      matrix:
+        other_locations: ${{ toJson(secrets.O_LOCATIONS) }} #[ubuntu-latest, macos-latest, windows-latest]
 
-  #   steps:
-  #     - name: Echo Other Locations
-  #       shell: bash
-  #       run: |
-  #         echo ${{ matrix.other_locations }}
-  #         # echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
-  #         # echo ${{ env.OTHER_LOCATIONS_TEST }}
+    steps:
+      - name: Echo Other Locations
+        shell: bash
+        run: |
+          echo ${{ matrix.other_locations }}
+          # echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
+          # echo ${{ env.OTHER_LOCATIONS_TEST }}
