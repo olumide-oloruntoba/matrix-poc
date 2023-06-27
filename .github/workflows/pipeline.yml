@@ -27,7 +27,7 @@ jobs:
         id: other_locs
         run: |
           echo ${{ inputs.environment }}
-          echo "::set-output name=other_locs::${{ secrets.O_LOCATIONS }}"
+          echo "::set-output name=other_locs::${{ env.OTHER_LOCATIONS_TEST }}"
 
       - name: display
         shell: bash
