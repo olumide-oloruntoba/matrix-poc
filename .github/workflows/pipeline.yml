@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        other_locations: [ubuntu-latest, macos-latest, windows-latest]
+        other_locations: ${{ secrets.O_LOCATIONS }} #[ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Echo Other Locations
