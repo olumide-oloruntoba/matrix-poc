@@ -40,13 +40,6 @@ jobs:
             echo "Matrix Value: $item"
           done
 
-      - name: Run Job with Matrix
-        strategy:
-          matrix:
-            my_array: ${{ steps.other_locs.outputs.other_locs }}
-        run: |
-          echo "Matrix Value in Matrix Job: $my_array"
-
       # - name: display
       #   shell: bash
       #   run: |
