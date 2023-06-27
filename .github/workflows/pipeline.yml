@@ -1,7 +1,7 @@
 name: Using Matrix
 
 env:
-  OTHER_LOCATIONS_TEST: "value1,value2,value3"
+  OTHER_LOCATIONS_TEST: value1,value2,value3
 
 
 on:
@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           echo ${{ steps.other_locs.outputs.other_locs }}
-          readarray -t ARRAY <<< "${{ secrets.O_LOCATIONS }}"
+          readarray -t ARRAY <<< "${{ env.OTHER_LOCATIONS_TEST }}"
           echo "Array Length: ${#ARRAY[@]}"
         
     outputs:
