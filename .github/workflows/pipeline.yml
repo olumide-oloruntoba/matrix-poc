@@ -1,7 +1,7 @@
 name: Using Matrix
 
 env:
-  PLATFORMS: '["ubuntu-latest", "macos-latest", "windows-latest"]'
+  PLATFORMS: [ubuntu-latest, macos-latest, windows-latest]
 
 
 on:
@@ -27,7 +27,8 @@ jobs:
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
           echo "Array Strings: $PLATFORMS"
-          echo "::set-output name=formatted_platforms::${PLATFORMS}"
+          # echo "::set-output name=formatted_platforms::${PLATFORMS}"
+          echo "::set-output name=formatted_platforms::${{ fromJSON(env.PLATFORMS) }}"
 
       - name: Display
         run: |
@@ -51,7 +52,7 @@ jobs:
     needs: matrix_display
     strategy:
       matrix:
-        platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
+        platform: ${{ needs.format_value.outputs.formatted_platforms }}
     steps:
       - name: Display Matrix Value
         run: |
