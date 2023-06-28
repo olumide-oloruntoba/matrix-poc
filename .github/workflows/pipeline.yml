@@ -1,7 +1,6 @@
 name: Using Matrix
 
 env:
-  OTHER_LOCATIONS_TEST: '[value1,value2,value3]'
   PLATFORMS: "[ubuntu-latest, macos-latest, windows-latest]"
 
 
@@ -41,70 +40,3 @@ jobs:
   #     - name: Display Matrix Value
   #       run: |
   #         echo "Running on ${{ matrix.platform }}"
-
-
-
-  # deploy_to_default_region:
-  #   environment: '${{ inputs.environment }}'
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     # - name: Echo Location
-  #     #   shell: bash
-  #     #   id: other_locs
-  #     #   run: |
-  #     #     echo ${{ inputs.environment }}
-  #     #     echo "::set-output name=other_locs::${{ env.OTHER_LOCATIONS_TEST }}"
-
-  #     - name: Split String into Array
-  #       id: other_locs
-  #       shell: bash
-  #       run: |
-  #         IFS=',' read -ra elements <<< "${{ env.OTHER_LOCATIONS_TEST }}"
-
-  #         # Convert the elements into the desired format [element1,element2,element3]
-  #         formatted_array="["
-  #         for ((i=0; i<${#elements[@]}; i++)); do
-  #           if [ $i -ne 0 ]; then
-  #             formatted_array+=","
-  #           fi
-  #           formatted_array+="${elements[i]}"
-  #         done
-  #         formatted_array+="]"
-  #         echo "$formatted_array"
-  #         echo "::set-output name=other_locs::$(echo $formatted_array)"
-
-  #     # - name: Display Matrix Value
-  #     #   run: |
-  #     #     for item in "${{ steps.other_locs.outputs.other_locs }}"; do
-  #     #       echo "Matrix Value: $item"
-  #     #     done
-
-  #     # - name: display
-  #     #   shell: bash
-  #     #   run: |
-  #     #     echo ${{ steps.other_locs.outputs.other_locs }}
-  #     #     ARRAY=("${{ split(',', ${env.OTHER_LOCATIONS_TEST}) }}")
-  #     #     echo "Array Length: ${#ARRAY[@]}"
-        
-  #   outputs:
-  #     o_locs: ${{ steps.other_locs.outputs.other_locs }}
-
-
-  # deploy_to_other_region:
-  #   if: ${{ github.event.inputs.environment == 'prod' }}
-  #   environment: '${{ inputs.environment }}'
-  #   runs-on: ubuntu-latest
-  #   needs: deploy_to_default_region
-  #   strategy:
-  #     matrix:
-  #       other_locations: ${{ env.OTHER_LOCATIONS_TEST }} #${{ needs.deploy_to_default_region.outputs.o_locs }} #[ubuntu-latest, macos-latest, windows-latest]
-
-  #   steps:
-  #     - name: Echo Other Locations
-  #       shell: bash
-  #       run: |
-  #         # echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
-  #         echo ${{ matrix.other_locations }}
-  #         # echo ${{ needs.deploy_to_default_region.outputs.o_locs }}
-  #         # echo ${{ env.OTHER_LOCATIONS_TEST }}
