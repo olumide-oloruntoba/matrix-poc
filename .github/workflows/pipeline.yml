@@ -26,6 +26,7 @@ jobs:
           PLATFORMS="${{ env.PLATFORMS }}"
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
+          echo "Array Strings: $PLATFORMS"
           echo "::set-output name=formatted_platforms::${PLATFORMS}"
 
       - name: Display
@@ -37,11 +38,11 @@ jobs:
   matrix_job:
     runs-on: ubuntu-latest
     needs: format_value
-    # strategy:
-    #   matrix:
-    #     platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
+    strategy:
+      matrix:
+        platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
     steps:
       - name: Display Matrix Value
         run: |
-          # echo "Running on ${{ matrix.platform }}"
+          echo "Running on ${{ matrix.platform }}"
           echo "Running on ${{ needs.format_value.outputs.formatted_platforms }}"
