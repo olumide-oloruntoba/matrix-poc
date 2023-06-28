@@ -1,7 +1,7 @@
 name: Using Matrix
 
 env:
-  PLATFORMS: "[ubuntu-latest, macos-latest, windows-latest]"
+  PLATFORMS: ["ubuntu-latest", "macos-latest", "windows-latest"]
 
 
 on:
@@ -23,7 +23,7 @@ jobs:
       - name: Format Value
         id: format_value_step
         run: |
-          PLATFORMS=[ubuntu-latest, macos-latest, windows-latest]
+          PLATFORMS="${{ env.PLATFORMS }}"
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
           echo "Array Strings: $PLATFORMS"
