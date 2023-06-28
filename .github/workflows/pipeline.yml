@@ -35,9 +35,20 @@ jobs:
     outputs:
       formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
   
-  matrix_job:
+  matrix_display:
     runs-on: ubuntu-latest
     needs: format_value
+    # strategy:
+    #   matrix:
+    #     platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
+    steps:
+      - name: Display Matrix Value
+        run: |
+          echo "Running on ${{ needs.format_value.outputs.formatted_platforms }}"
+
+  matrix_job:
+    runs-on: ubuntu-latest
+    needs: matrix_display
     strategy:
       matrix:
         platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
