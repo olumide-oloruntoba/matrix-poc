@@ -28,12 +28,15 @@ jobs:
           PLATFORMS="${PLATFORMS//\[/}"
           PLATFORMS="${PLATFORMS//\]/}"
           echo "::set-output name=formatted_platforms::${PLATFORMS//, /,}"
+  outputs:
+    formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
   
   matrix_job:
     runs-on: ubuntu-latest
+    needs: format_value
     strategy:
       matrix:
-        platform: ${{ fromJson(steps.format_value_step.outputs.formatted_platforms) }}
+        platform: ${{ fromJson(steps.format_value.outputs.formatted_platforms) }}
     steps:
       - name: Display Matrix Value
         run: |
