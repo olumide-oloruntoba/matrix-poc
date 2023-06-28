@@ -23,7 +23,7 @@ jobs:
       - name: Format Value
         id: format_value_step
         run: |
-          PLATFORMS="${{ env.PLATFORMS }}"
+          PLATFORMS=[ubuntu-latest, macos-latest, windows-latest]
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
           echo "Array Strings: $PLATFORMS"
