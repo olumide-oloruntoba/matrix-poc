@@ -1,0 +1,108 @@
+name: System Stress Test
+on:
+  workflow_dispatch:
+    inputs:
+      runners_count:
+        description: "Number of instances/runners"
+        default: 1
+        type: "sequence"
+      memory:
+        description: "Memory bound stress test"
+        default: false
+        type: "boolean"
+      cpu:
+        description: "CPU bound stress test"
+        default: false
+        type: "boolean"
+      general:
+        description: "General bound stress test"
+        default: false
+        type: "boolean"
+
+jobs:
+  generate-matrix:
+    name: "Generate Matrix"
+    runs-on: [ cawe-linux-x64-general-small ]
+
+    steps:
+      - name: "Set matrix for total instance units"
+        id: set-matrix
+        run: |
+          number_of_elements=${TOTAL_RUNNERS}
+          echo "Total Elements: $number_of_elements"
+          numbers=$(seq -s " " 1 $number_of_elements)
+          echo "Numbers: $numbers"
+          array_numbers=$(echo $numbers | sed 's/ *$//g' | jq -Rc 'split(" ")')
+          echo "Array Numbers: $array_numbers"
+          echo "::set-output name=array_numbers::${array_numbers}"
+        env:
+          TOTAL_RUNNERS: ${{ inputs.runners_count }}
+    outputs:
+      runners_count: ${{ steps.set-matrix.outputs.array_numbers }}
+
+  stress-test-config:
+    name: "Stress Test Configuration"
+    environment: dev
+    needs: generate-matrix
+    strategy:
+      matrix: 
+        NUMBER: ${{ fromJSON(needs.generate-matrix.outputs.runners_count) }}
+    runs-on: [ cawe-linux-x64-general-small ]
+
+    steps:
+      - name: Selected Stress Tests
+        run: |
+          echo Memory Bound stress test is ${{ inputs.memory }}
+          echo CPU Bound stress test is ${{ inputs.cpu }}
+          echo General Bound stress test is ${{ inputs.general }}
+
+  stress-test-memory:
+    if: inputs.memory == true
+    name: "Memory Bound Stress Test"
+    environment: dev
+    needs: generate-matrix
+    strategy:
+      matrix: 
+        NUMBER: ${{ fromJSON(needs.generate-matrix.outputs.runners_count) }}
+    runs-on: [ cawe-linux-x64-general-small ]
+
+    steps:
+      - name: Stress Test
+        run: |
+          sudo amazon-linux-extras install epel -y
+          sudo yum install stress-ng -y
+          sudo stress-ng -m 1 --vm-bytes 1G -t 60s --metrics-brief -v
+
+  stress-test-cpu:
+    if: inputs.cpu == true
+    name: "CPU Bound Stress Test"
+    environment: dev
+    needs: generate-matrix
+    strategy:
+      matrix: 
+        NUMBER: ${{ fromJSON(needs.generate-matrix.outputs.runners_count) }}
+    runs-on: [ cawe-linux-x64-general-small ]
+
+    steps:
+      - name: Stress Test
+        run: |
+          sudo amazon-linux-extras install epel -y
+          sudo yum install stress-ng -y
+          sudo stress-ng -c 4 -t 60s --metrics-brief -v
+
+  stress-test-general:
+    if: inputs.general == true
+    name: "General Bound Stress Test"
+    environment: dev
+    needs: generate-matrix
+    strategy:
+      matrix: 
+        NUMBER: ${{ fromJSON(needs.generate-matrix.outputs.runners_count) }}
+    runs-on: [ cawe-linux-x64-general-small ]
+
+    steps:
+      - name: Stress Test
+        run: |
+          sudo amazon-linux-extras install epel -y
+          sudo yum install stress-ng -y
+          sudo stress-ng -c 4 -i 2 -m 1 --vm-bytes 1G -t 60s --metrics-brief -v

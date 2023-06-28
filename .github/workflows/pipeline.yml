@@ -26,7 +26,7 @@ jobs:
           PLATFORMS="${{ env.PLATFORMS }}"
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
-          echo "::set-output name=formatted_platforms::$(echo $PLATFORMS)"
+          echo "::set-output name=formatted_platforms::${PLATFORMS}"
 
       - name: Display
         run: |
