@@ -30,7 +30,7 @@ jobs:
 
       - name: Display
         run: |
-          echo ${{ fromJson(steps.format_value_step.outputs.formatted_platforms) }}
+          echo ${{ steps.format_value_step.outputs.formatted_platforms }}
     outputs:
       formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
   
