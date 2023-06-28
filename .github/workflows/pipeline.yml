@@ -24,8 +24,8 @@ jobs:
         id: format_value_step
         run: |
           PLATFORMS="${{ env.PLATFORMS }}"
-          PLATFORMS="${PLATFORMS//\[/}"
-          PLATFORMS="${PLATFORMS//\]/}"
+          # PLATFORMS="${PLATFORMS//\[/}"
+          # PLATFORMS="${PLATFORMS//\]/}"
           echo "::set-output name=formatted_platforms::${PLATFORMS//, /,}"
 
       - name: Display
@@ -39,7 +39,7 @@ jobs:
     needs: format_value
     strategy:
       matrix:
-        platform: [${{ fromJson(needs.format_value.outputs.formatted_platforms) }}]
+        platform: ${{ fromJson(needs.format_value.outputs.formatted_platforms) }}
     steps:
       - name: Display Matrix Value
         run: |
