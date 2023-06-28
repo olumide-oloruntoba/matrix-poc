@@ -26,8 +26,7 @@ jobs:
           PLATFORMS="${{ env.PLATFORMS }}"
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
-          PLATFORMS_ARRAY=$(echo $PLATFORMS | jq -r 'join(",")')
-          echo "::set-output name=formatted_platforms::$(echo $PLATFORMS_ARRAY)"
+          echo "::set-output name=formatted_platforms::$(echo $PLATFORMS)"
 
       - name: Display
         run: |
@@ -40,7 +39,7 @@ jobs:
     needs: format_value
     strategy:
       matrix:
-        platform: ${{ needs.format_value.outputs.formatted_platforms }}
+        platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
     steps:
       - name: Display Matrix Value
         run: |
