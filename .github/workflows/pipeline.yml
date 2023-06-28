@@ -31,8 +31,8 @@ jobs:
       - name: Display
         run: |
           echo ${{ steps.format_value_step.outputs.formatted_platforms }}
-  outputs:
-    formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
+    outputs:
+      formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
   
   matrix_job:
     runs-on: ubuntu-latest
