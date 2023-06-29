@@ -42,10 +42,10 @@ jobs:
           done
 
           elementCount=${#the_array[@]}
-          echo $the_array[0]
-          echo $the_array[1]
-          echo $the_array[2]
-          echo $the_array[3]
+          echo ${the_array[0]}
+          echo ${the_array[1]}
+          echo ${the_array[2]}
+          echo ${the_array[3]}
           echo $elementCount
 
       - name: Display
