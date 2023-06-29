@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Display Matrix Value
         run: |
-          echo "Running on length(${{ needs.format_value.outputs.formatted_platforms }})"
+          echo ${{ needs.format_value.outputs.formatted_platforms }} | jq '. | length'
 
   matrix_job:
     runs-on: ubuntu-latest
