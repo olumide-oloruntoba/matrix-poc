@@ -48,7 +48,7 @@ jobs:
           echo ${the_array[2]}
           echo ${the_array[3]}
           echo $elementCount
-          type(${the_array[@]})
+          # type(${the_array[@]})
 
       - name: Display
         run: |
