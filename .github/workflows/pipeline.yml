@@ -28,7 +28,7 @@ jobs:
           # PLATFORMS="${PLATFORMS//\]/}"
           echo "Array Strings: $PLATFORMS"
           # echo "::set-output name=formatted_platforms::${PLATFORMS}"
-          echo "::set-output name=formatted_platforms::${{ fromJSON(env.PLATFORMS) }}"
+          echo "::set-output name=formatted_platforms::${{ env.PLATFORMS }}"
 
       - name: Display
         run: |
