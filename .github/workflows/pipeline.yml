@@ -82,7 +82,7 @@ jobs:
     needs: format_value
     strategy:
       matrix:
-        platform: ${{ needs.format_value.outputs.formatted_platforms }}
+        platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
     steps:
       - name: Display Matrix Value
         run: |
