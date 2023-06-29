@@ -42,14 +42,14 @@ jobs:
           # done
           # echo "Array Numbers: ${the_array[@]}"
           # Create a JSON object from the array elements
-          jsonObject="{\"elements\": ["
+          jsonObject="["
           for ((i=0; i<${#my_array[@]}; i++)); do
             jsonObject+="\"${my_array[i]}\""
             if [[ $i -lt $(( ${#my_array[@]} - 1 )) ]]; then
               jsonObject+=","
             fi
           done
-          jsonObject+="]}"
+          jsonObject+="]"
           echo "::set-output name=formatted_platforms::${jsonObject}"
 
           # elementCount=${#the_array[@]}
