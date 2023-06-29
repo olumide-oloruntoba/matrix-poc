@@ -32,6 +32,7 @@ jobs:
           # echo "::set-output name=formatted_platforms::${PLATFORMS}"
 
           type(${{ vars.O_LOCS }})
+          echo ${{ vars.O_LOCS }}
           echo "::set-output name=formatted_platforms::${{ env.PLATFORMS }}"
 
       - name: Display
