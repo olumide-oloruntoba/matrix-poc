@@ -23,12 +23,14 @@ jobs:
       - name: Format Value
         id: format_value_step
         run: |
-          type(${{ env.PLATFORMS }})
-          PLATFORMS="${{ env.PLATFORMS }}"
+          # type(${{ env.PLATFORMS }})
+          # PLATFORMS="${{ env.PLATFORMS }}"
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
-          echo "Array Strings: $PLATFORMS"
+          # echo "Array Strings: $PLATFORMS"
           # echo "::set-output name=formatted_platforms::${PLATFORMS}"
+
+          echo ${{ vars.O_LOCS }}
           echo "::set-output name=formatted_platforms::${{ env.PLATFORMS }}"
 
       - name: Display
