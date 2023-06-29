@@ -40,7 +40,7 @@ jobs:
             echo "$element"
             the_array+=($element)
           done
-          echo "Array Numbers: $the_array"
+          echo "Array Numbers: ${the_array[@]}"
           echo "::set-output name=formatted_platforms::${the_array[@]}"
 
           elementCount=${#the_array[@]}
