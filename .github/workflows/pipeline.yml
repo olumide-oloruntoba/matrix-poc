@@ -19,6 +19,7 @@ on:
 jobs:
   format_value:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: Format Value
         id: format_value_step
