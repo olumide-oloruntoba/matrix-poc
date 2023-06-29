@@ -31,7 +31,7 @@ jobs:
           # echo "Array Strings: $PLATFORMS"
           # echo "::set-output name=formatted_platforms::${PLATFORMS}"
 
-          echo "Other locs are: ${{ vars.O_LOCS }}""
+          echo "Other locs are: ${{ vars.O_LOCS }}"
           echo "::set-output name=formatted_platforms::${{ env.PLATFORMS }}"
 
       - name: Display
