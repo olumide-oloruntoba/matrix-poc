@@ -7,14 +7,14 @@ env:
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Environment for deployment'
-        type: choice
-        required: true
-        options: 
-        - test
-        - staging
-        - prod
+      # environment:
+      #   description: 'Environment for deployment'
+      #   type: choice
+      #   required: true
+      #   options: 
+      #   - test
+      #   - staging
+      #   - prod
 
 jobs:
   format_value:
@@ -23,6 +23,7 @@ jobs:
       - name: Format Value
         id: format_value_step
         run: |
+          type(${{ env.PLATFORMS }})
           PLATFORMS="${{ env.PLATFORMS }}"
           # PLATFORMS="${PLATFORMS//\[/}"
           # PLATFORMS="${PLATFORMS//\]/}"
