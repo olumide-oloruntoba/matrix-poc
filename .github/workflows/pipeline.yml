@@ -24,24 +24,8 @@ jobs:
       - name: Format Value
         id: format_value_step
         run: |
-          # # type(${{ env.PLATFORMS }})
-          # # PLATFORMS="${{ env.PLATFORMS }}"
-          # # PLATFORMS="${PLATFORMS//\[/}"
-          # # PLATFORMS="${PLATFORMS//\]/}"
-          # # echo "Array Strings: $PLATFORMS"
-          # # echo "::set-output name=formatted_platforms::${PLATFORMS}"
-
-          # # type(${{ vars.O_LOCS }})
-          # echo ${{ vars.O_LOCS }}
-          # echo "::set-output name=formatted_platforms::${{ env.PLATFORMS }}"
           declare -a the_array=()
-          IFS=', ' read -ra my_array <<< ${{ env.PLATFORMS }}
-          # for element in "${my_array[@]}"; do
-          #   echo "$element"
-          #   the_array+=($element)
-          # done
-          # echo "Array Numbers: ${the_array[@]}"
-          # Create a JSON object from the array elements
+          IFS=', ' read -ra my_array <<< ${{ vars.O_LOCS }}
           jsonObject="["
           for ((i=0; i<${#my_array[@]}; i++)); do
             jsonObject+="\"${my_array[i]}\""
@@ -51,14 +35,6 @@ jobs:
           done
           jsonObject+="]"
           echo "::set-output name=formatted_platforms::${jsonObject}"
-
-          # elementCount=${#the_array[@]}
-          # echo ${the_array[0]}
-          # echo ${the_array[1]}
-          # echo ${the_array[2]}
-          # echo ${the_array[3]}
-          # echo $elementCount
-          # type(${the_array[@]})
 
       - name: Display
         run: |
