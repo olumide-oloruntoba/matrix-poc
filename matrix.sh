@@ -7,7 +7,7 @@ declare -a the_array=()
 input_string="apple, banana, grape, orange"
 
 # Split the string by commas and populate the array
-IFS=', ' read -r my_array <<< $input_string
+IFS=', ' read -ra my_array <<< $input_string
 # IFS=',' read -ra elements <<< "${{ env.OTHER_LOCATIONS_TEST }}"
 
 # Print the elements of the array

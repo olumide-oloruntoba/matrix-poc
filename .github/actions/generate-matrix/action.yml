@@ -1,0 +1,30 @@
+name: Generate Matrix for Regions
+
+inputs:
+  other_locations:
+    description: 'List of regions'
+    required: true
+    type: string
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Format Value
+      id: format_value
+      shell: bash
+      run: |
+        declare -a the_array=()
+        IFS=', ' read -ra my_array <<< ${{ inputs.other_locations }}
+        jsonObject="["
+        for ((i=0; i<${#my_array[@]}; i++)); do
+          jsonObject+="\"${my_array[i]}\""
+          if [[ $i -lt $(( ${#my_array[@]} - 1 )) ]]; then
+            jsonObject+=","
+          fi
+        done
+        jsonObject+="]"
+        echo "::set-output name=formatted_platforms::${jsonObject}"
+
+    - name: Display
+      run: |
+        echo ${{ steps.format_value.outputs.formatted_platforms }}
