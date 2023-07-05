@@ -28,13 +28,13 @@ runs:
           fi
         done
         jsonObject+="]"
-        # echo "::set-output name=formatted_platforms::${jsonObject}"
+        echo "::set-output name=formatted_platforms::${jsonObject}"
         echo "formatted_platforms=${jsonObject}" >> $GITHUB_OUTPUT
 
-    # - name: Display
-    #   shell: bash
-    #   run: |
-    #     echo ${{ steps.format_value.outputs.formatted_platforms }}
+    - name: Display
+      shell: bash
+      run: |
+        echo ${{ steps.format_value.outputs.formatted_platforms }}
 
   # outputs:
   #   formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
