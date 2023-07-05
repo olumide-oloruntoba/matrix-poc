@@ -29,3 +29,6 @@ runs:
       shell: bash
       run: |
         echo ${{ steps.format_value.outputs.formatted_platforms }}
+
+  outputs:
+    formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}

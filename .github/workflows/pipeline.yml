@@ -29,8 +29,8 @@ jobs:
         with:
           other_locations: '${{ vars.O_LOCS }}'
 
-    outputs:
-      formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
+    # outputs:
+    #   formatted_platforms: ${{ steps.format_value_step.outputs.formatted_platforms }}
   # format_value:
   #   runs-on: ubuntu-latest
   #   environment: prod
