@@ -9,7 +9,7 @@ inputs:
 outputs:
   formatted_platforms:
     description: "description"
-    value: ${{ steps.format_value_step.outputs.formatted_platforms }}
+    value: ${{ steps.format_value.outputs.formatted_platforms }}
 
 runs:
   using: 'composite'
