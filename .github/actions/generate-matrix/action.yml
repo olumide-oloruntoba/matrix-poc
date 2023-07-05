@@ -6,6 +6,11 @@ inputs:
     required: true
     type: string
 
+outputs:
+  formatted_platforms:
+    description: "description"
+    value: ${{ steps.format_value_step.outputs.formatted_platforms }}
+
 runs:
   using: 'composite'
   steps:
