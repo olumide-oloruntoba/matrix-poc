@@ -26,11 +26,12 @@ jobs:
 
       - name: Deploy Infrastructure
         uses: ./.github/actions/generate-matrix
+        id: format_value
         with:
           other_locations: '${{ vars.O_LOCS }}'
 
-    # outputs:
-    #   formatted_platforms: ${{ steps.format_value.outputs.formatted_platforms }}
+    outputs:
+      formatted_platforms: ${{ steps.format_value.outputs.formatted_platforms }}
   # format_value:
   #   runs-on: ubuntu-latest
   #   environment: prod
