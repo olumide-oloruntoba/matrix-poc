@@ -7,7 +7,9 @@ inputs:
     type: string
 
 outputs:
-  formatted_platforms: ${{ steps.format_value.outputs.formatted_platforms }}
+  formatted_platforms:
+    description: "description"
+    value: ${{ steps.format_value.outputs.formatted_platforms }}
 
 runs:
   using: 'composite'
@@ -26,8 +28,8 @@ runs:
           fi
         done
         jsonObject+="]"
-        echo "::set-output name=formatted_platforms::${jsonObject}"
-        # echo "formatted_platforms=${{ steps.format_value.outputs.formatted_platforms }}" >> $GITHUB_OUTPUT
+        # echo "::set-output name=formatted_platforms::${jsonObject}"
+        echo "formatted_platforms=${jsonObject}" >> $GITHUB_OUTPUT
 
     - name: Display
       shell: bash
