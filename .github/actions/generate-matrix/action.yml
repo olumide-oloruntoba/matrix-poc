@@ -1,8 +1,8 @@
-name: Generate Matrix for Regions
+name: Generate Matrix Value Format
 
 inputs:
-  other_locations:
-    description: 'List of regions'
+  element_list:
+    description: 'List of elements'
     required: true
     type: string
 
