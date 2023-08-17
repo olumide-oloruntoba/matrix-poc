@@ -1,7 +1,7 @@
 name: Using Matrix
 
-env:
-  PLATFORMS: ubuntu-latest,macos-latest,windows-latest
+# env:
+#   PLATFORMS: ubuntu-latest,macos-latest,windows-latest
 
 
 on:
@@ -19,32 +19,38 @@ on:
 jobs:
   format_value:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy Infrastructure
-        uses: ./.github/actions/generate-matrix
-        id: format_value
+      - name: Authenticate with GitHub Token
+        uses: actions/setup-gh@v2
         with:
-          other_locations: '${{ vars.O_LOCS }}'
+          token: ${{ secrets.GH_GITHUB_TOKEN }}
+
+      # - name: Deploy Infrastructure
+      #   uses: ./.github/actions/generate-matrix
+      #   id: format_value
+      #   with:
+      #     other_locations: '${{ vars.O_LOCS }}'
 
       - name: Display tag version
         run: |
-          echo ${{ github.sha }}
+          gcloud iam service-accounts keys create key-file.txt --iam-account=tf-service-account@ooloruntoba-playground.iam.gserviceaccount.com
+          gh secret set TESTSECRET < key-file.txt --env test
 
-    outputs:
-      formatted_platforms: ${{ steps.format_value.outputs.formatted_platforms }}
+    # outputs:
+    #   formatted_platforms: ${{ steps.format_value.outputs.formatted_platforms }}
 
-  matrix_job:
-    runs-on: ubuntu-latest
-    needs: format_value
-    strategy:
-      matrix:
-        platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
-    steps:
-      - name: Display Matrix Value
-        run: |
-          echo "Running on ${{ matrix.platform }}"
-          echo ${{ github.sha }}
+  # matrix_job:
+  #   runs-on: ubuntu-latest
+  #   needs: format_value
+  #   strategy:
+  #     matrix:
+  #       platform: ${{ fromJSON(needs.format_value.outputs.formatted_platforms) }}
+  #   steps:
+  #     - name: Display Matrix Value
+  #       run: |
+  #         echo "Running on ${{ matrix.platform }}"
+  #         echo ${{ github.sha }}

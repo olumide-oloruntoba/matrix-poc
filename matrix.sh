@@ -25,6 +25,6 @@
 
 gcloud iam service-accounts keys create key-file.txt --iam-account=tf-service-account@ooloruntoba-playground.iam.gserviceaccount.com
 
-gh secret set MYSECRET < key-file.txt --env myenvironment
+gh secret set MYSECRET < key-file.txt --env test
 
 gh auth login --with-token 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
