@@ -35,10 +35,10 @@ jobs:
       #   with:
       #     other_locations: '${{ vars.O_LOCS }}'
 
-      - name: Display tag version
-        run: |
-          gcloud iam service-accounts keys create key-file.txt --iam-account=tf-service-account@ooloruntoba-playground.iam.gserviceaccount.com
-          gh secret set TESTSECRET < key-file.txt --env test
+      # - name: Display tag version
+      #   run: |
+      #     gcloud iam service-accounts keys create key-file.txt --iam-account=tf-service-account@ooloruntoba-playground.iam.gserviceaccount.com
+      #     gh secret set TESTSECRET < key-file.txt --env test
 
     # outputs:
     #   formatted_platforms: ${{ steps.format_value.outputs.formatted_platforms }}
