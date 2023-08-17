@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Authenticate with GitHub Token
-        uses: actions/setup-gh@v2
+        uses: actions/setup-gh@v1
         with:
           token: ${{ secrets.GH_GITHUB_TOKEN }}
 
